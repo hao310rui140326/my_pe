@@ -81,3 +81,9 @@ print:
 	@echo "Object files = $(OBJS)"
 	@echo "Dependencies = $(DEPS)"
 
+
+my_run:
+	g++  -Wall -Wfatal-errors -fpermissive  -O0 -g -DDEBUG_EN -std=c++11   $(SRCS)   $(foreach D,$(INC_DIRS),-I$D) $(foreach L,$(LIBS), -l$(L))    -o    my_test 
+
+
+
