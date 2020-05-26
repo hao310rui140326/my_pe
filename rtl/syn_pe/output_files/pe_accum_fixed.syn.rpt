@@ -1,0 +1,37 @@
+Synthesis report
+Wed Apr 29 14:43:32 2020
+Quartus Prime Version 18.1.0 Build 222 09/21/2018 SJ Pro Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Synthesis Messages
+
+
+
++--------------------+
+; Synthesis Messages ;
++--------------------+
+Info: *******************************************************************
+Info: Running Quartus Prime Synthesis
+    Info: Version 18.1.0 Build 222 09/21/2018 SJ Pro Edition
+    Info: Processing started: Wed Apr 29 14:43:29 2020
+Info: Command: quartus_syn --read_settings_files=on --write_settings_files=off syn_pe -c pe_accum_fixed
+Info: qis_default_flow_script.tcl version: #1
+Info: Initializing Synthesis...
+Info: Project = "syn_pe"
+Info: Revision = "pe_accum_fixed"
+Info: Analyzing source files
+Warning (17326): Verilog HDL warning at pe_accum_fixed.sv(32): elaboration system task fatal violates IEEE 1800 (2005) syntax File: /home/gmei/wrk/DLA/2019DLAR2/dla_2019_r2/fpga/efi/pe_accum_fixed.sv Line: 32
+Info: Elaborating from top-level entity "pe_accum_fixed"
+Info (18235): Library search order is as follows: "ctp". Quartus will look for undefined design units in your libraries in that order. To modify the ordering, please specify a semi-colon separated library list using the assignment LIBRARY_SEARCH_ORDER.
+Error (17358): Verilog HDL error at pe_accum_fixed.sv(21): parameter cfg has no actual or default value File: /home/gmei/wrk/DLA/2019DLAR2/dla_2019_r2/fpga/efi/pe_accum_fixed.sv Line: 21
+Error (16186): Can't elaborate top-level user hierarchy
+Error: Flow failed: 
+Error: Quartus Prime Synthesis was unsuccessful. 3 errors, 1 warning
+    Error: Peak virtual memory: 1307 megabytes
+    Error: Processing ended: Wed Apr 29 14:43:32 2020
+    Error: Elapsed time: 00:00:03
+
+

@@ -1,0 +1,296 @@
+<EFI_SPEC>
+  <FUNCTION name="pe_array_efi" module="pe_array">
+    <ATTRIBUTES>
+      <PARAMETER name="ENABLE_FP32_MODE" value="0"/>
+      <PARAMETER name="ENABLE_FIXED_MODE" value="0"/>
+      <PARAMETER name="ENABLE_BLOCKFP_MODE" value="1"/>
+      <PARAMETER name="ENABLE_1X_DSP_PACKING" value="0"/>
+      <PARAMETER name="ENABLE_2X_DSP_PACKING" value="0"/>
+      <PARAMETER name="ENABLE_4X_DSP_PACKING" value="1"/>
+      <PARAMETER name="FEATURE_WIDTH" value="5"/>
+      <PARAMETER name="FILTER_WIDTH" value="5"/>
+      <PARAMETER name="EXPONENT_WIDTH" value="5"/>
+      <PARAMETER name="EXPONENT_BIAS" value="15"/>
+      <PARAMETER name="RESULT_MANTISSA_WIDTH" value="10"/>
+      <PARAMETER name="RESULT_EXPONENT_WIDTH" value="5"/>
+      <PARAMETER name="RESULT_EXPONENT_BIAS" value="15"/>
+      <PARAMETER name="RESULT_WIDTH" value="16"/>
+      <PARAMETER name="NUM_RESULTS_PER_CYCLE" value="6"/>
+      <PARAMETER name="NUM_CHAINS" value="2"/>
+      <PARAMETER name="NUM_PES" value="2"/>
+      <PARAMETER name="NUM_DOTS" value="1"/>
+      <PARAMETER name="NUM_FEATURES" value="6"/>
+      <PARAMETER name="NUM_FILTERS" value="2"/>
+      <PARAMETER name="PE_ID_WIDTH" value="1"/>
+      <PARAMETER name="FILTER_ID_WIDTH" value="1"/>
+      <PARAMETER name="RAM_LATENCY" value="4"/>
+      <PARAMETER name="RAM_ADDR_WIDTH" value="12"/>
+      <PARAMETER name="RAM_DEPTH" value="4096"/>
+      <PARAMETER name="RAM_WIDTH" value="45"/>
+      <PARAMETER name="MULT_OUTPUT_WIDTH" value="9"/>
+      <PARAMETER name="DOT_SIZE" value="8"/>
+      <PARAMETER name="DOT_OUTPUT_WIDTH" value="12"/>
+      <PARAMETER name="DOT_LATENCY_DSP_MULT" value="3"/>
+      <PARAMETER name="DOT_LATENCY_ALM_MULT" value="2"/>
+      <PARAMETER name="DOT_LATENCY_ADDER_TREE" value="3"/>
+      <PARAMETER name="DOT_LATENCY" value="5"/>
+      <PARAMETER name="ENABLE_FRACTAL_MULT" value="1"/>
+      <PARAMETER name="ENABLE_PRECOMPILED_DOTS" value="1"/>
+      <PARAMETER name="ACCUM_LATENCY" value="9"/>
+      <PARAMETER name="ALM_ACCUM_WIDTH" value="42"/>
+      <PARAMETER name="ALM_ACCUM_FRACTION_WIDTH" value="24"/>
+      <PARAMETER name="FIXED_ACCUM_WIDTH" value="16"/>
+      <PARAMETER name="DOT_RATIO_DSP" value="0"/>
+      <PARAMETER name="DOT_RATIO_ALM" value="1"/>
+      <PARAMETER name="ACCUM_RATIO_DSP" value="1"/>
+      <PARAMETER name="ACCUM_RATIO_ALM" value="3"/>
+      <PARAMETER name="TOTAL_LATENCY" value="22"/>
+      <PARAMETER name="DEVICE_A10" value="1"/>
+      <PARAMETER name="DEVICE_S10" value="0"/>
+      <PARAMETER name="DRAIN_LATENCY" value="2"/>
+      <PARAMETER name="NUM_ACCUM" value="24"/>
+      <PARAMETER name="NUM_FLUSH_CYCLES" value="4"/>
+      <PARAMETER name="IDATA_WIDTH" value="4000"/>
+      <PARAMETER name="ODATA_WIDTH" value="384"/>
+      <IS_STALL_FREE value="yes"/>
+      <IS_FIXED_LATENCY value="yes"/>
+      <EXPECTED_LATENCY value="22"/>
+      <HAS_SIDE_EFFECTS value="yes"/>
+      <ALLOW_MERGING value="yes"/>
+    </ATTRIBUTES>
+    <INTERFACE>
+      <AVALON port="clock" type="clock"/>
+      <AVALON port="resetn" type="resetn"/>
+      <AVALON port="ivalid" type="ivalid"/>
+      <AVALON port="ovalid" type="ovalid"/>
+      <AVALON port="iready" type="iready"/>
+      <AVALON port="oready" type="oready"/>
+      <INPUT port="idata" width="4000"/>
+      <OUTPUT port="odata" width="384"/>
+    </INTERFACE>
+    <C_MODEL>
+      <FILE name="pe_array_efi.cl" />
+    </C_MODEL>
+    <REQUIREMENTS>
+      <FILE name="delay.sv" />
+      <FILE name="pe_inc.sv" />
+      <FILE name="pe_types.sv" />
+      <FILE name="pe_dot_alm_a10_4x4x4.sv" />
+      <FILE name="pe_dot_alm_a10_4x4x8.sv" />
+      <FILE name="pe_dot_alm_a10_4x4x16.sv" />
+      <FILE name="pe_dot_alm_a10_4x4x32.sv" />
+      <FILE name="pe_dot_alm_a10_4x5x4.sv" />
+      <FILE name="pe_dot_alm_a10_4x5x8.sv" />
+      <FILE name="pe_dot_alm_a10_4x5x16.sv" />
+      <FILE name="pe_dot_alm_a10_4x5x32.sv" />
+      <FILE name="pe_dot_alm_a10_5x4x4.sv" />
+      <FILE name="pe_dot_alm_a10_5x4x8.sv" />
+      <FILE name="pe_dot_alm_a10_5x4x16.sv" />
+      <FILE name="pe_dot_alm_a10_5x4x32.sv" />
+      <FILE name="pe_dot_alm_a10_5x5x4.sv" />
+      <FILE name="pe_dot_alm_a10_5x5x8.sv" />
+      <FILE name="pe_dot_alm_a10_5x5x16.sv" />
+      <FILE name="pe_dot_alm_a10_5x5x32.sv" />
+      <FILE name="pe_dot_alm_a10_6x6x4.sv" />
+      <FILE name="pe_dot_alm_a10_6x6x8.sv" />
+      <FILE name="pe_dot_alm_a10_6x6x16.sv" />
+      <FILE name="pe_dot_alm_a10_6x6x32.sv" />
+      <FILE name="pe_dot_alm_a10_7x7x4.sv" />
+      <FILE name="pe_dot_alm_a10_7x7x8.sv" />
+      <FILE name="pe_dot_alm_a10_7x7x16.sv" />
+      <FILE name="pe_dot_alm_a10_7x7x32.sv" />
+      <FILE name="pe_dot_alm_a10_8x8x4.sv" />
+      <FILE name="pe_dot_alm_a10_8x8x8.sv" />
+      <FILE name="pe_dot_alm_a10_8x8x16.sv" />
+      <FILE name="pe_dot_alm_a10_8x8x32.sv" />
+      <FILE name="pe_dot_alm_a10_12x12x4.sv" />
+      <FILE name="pe_dot_alm_a10_12x12x8.sv" />
+      <FILE name="pe_dot_alm_a10_12x12x16.sv" />
+      <FILE name="pe_dot_alm_a10_12x12x32.sv" />
+      <FILE name="pe_dot_alm_s10_4x4x4.sv" />
+      <FILE name="pe_dot_alm_s10_4x4x8.sv" />
+      <FILE name="pe_dot_alm_s10_4x4x16.sv" />
+      <FILE name="pe_dot_alm_s10_4x4x32.sv" />
+      <FILE name="pe_dot_alm_s10_4x5x4.sv" />
+      <FILE name="pe_dot_alm_s10_4x5x8.sv" />
+      <FILE name="pe_dot_alm_s10_4x5x16.sv" />
+      <FILE name="pe_dot_alm_s10_4x5x32.sv" />
+      <FILE name="pe_dot_alm_s10_5x4x4.sv" />
+      <FILE name="pe_dot_alm_s10_5x4x8.sv" />
+      <FILE name="pe_dot_alm_s10_5x4x16.sv" />
+      <FILE name="pe_dot_alm_s10_5x4x32.sv" />
+      <FILE name="pe_dot_alm_s10_5x5x4.sv" />
+      <FILE name="pe_dot_alm_s10_5x5x8.sv" />
+      <FILE name="pe_dot_alm_s10_5x5x16.sv" />
+      <FILE name="pe_dot_alm_s10_5x5x32.sv" />
+      <FILE name="pe_dot_alm_s10_6x6x4.sv" />
+      <FILE name="pe_dot_alm_s10_6x6x8.sv" />
+      <FILE name="pe_dot_alm_s10_6x6x16.sv" />
+      <FILE name="pe_dot_alm_s10_6x6x32.sv" />
+      <FILE name="pe_dot_alm_s10_7x7x4.sv" />
+      <FILE name="pe_dot_alm_s10_7x7x8.sv" />
+      <FILE name="pe_dot_alm_s10_7x7x16.sv" />
+      <FILE name="pe_dot_alm_s10_7x7x32.sv" />
+      <FILE name="pe_dot_alm_s10_8x8x4.sv" />
+      <FILE name="pe_dot_alm_s10_8x8x8.sv" />
+      <FILE name="pe_dot_alm_s10_8x8x16.sv" />
+      <FILE name="pe_dot_alm_s10_8x8x32.sv" />
+      <FILE name="pe_dot_alm_s10_12x12x4.sv" />
+      <FILE name="pe_dot_alm_s10_12x12x8.sv" />
+      <FILE name="pe_dot_alm_s10_12x12x16.sv" />
+      <FILE name="pe_dot_alm_s10_12x12x32.sv" />
+      <FILE name="pe_dot_alm.sv" />
+      <FILE name="pe_a10_adder1.sv" />
+      <FILE name="pe_a10_adder_tree.sv" />
+      <FILE name="pe_s10_adder1.sv" />
+      <FILE name="pe_s10_adder2.sv" />
+      <FILE name="pe_s10_adder_tree.sv" />
+      <FILE name="pe_dsp_m18x18_full.sv" />
+      <FILE name="pe_dot_adder_tree.sv" />
+      <FILE name="pe_dot_dsp_1xpack.sv" />
+      <FILE name="pe_dot_dsp_2xpack.sv" />
+      <FILE name="pe_dot_dsp_4xpack.sv" />
+      <FILE name="pe_dot_dsp_4xpack_mult4.sv" />
+      <FILE name="pe_dot_dsp_4xpack_mult5.sv" />
+      <FILE name="pe_dot_checker.sv" />
+      <FILE name="pe_dot.sv" />
+      <FILE name="pe_ram.sv" />
+      <FILE name="pe_accum_blockfp_alm.sv" />
+      <FILE name="pe_accum_blockfp_dsp.sv" />
+      <FILE name="pe_accum_fixed.sv" />
+      <FILE name="pe_accum.sv" />
+      <FILE name="pe.sv" />
+      <FILE name="pe_array.sv" />
+    </REQUIREMENTS>
+    <RESOURCES>
+      <!-- num_alms=13689 -->
+      <ALUTS value="22415"/>
+      <FFS value="32822"/>
+      <MLABS value="0"/>
+      <RAMS value="72"/>
+      <DSPS value="24"/>
+    </RESOURCES>
+  </FUNCTION>
+  <FUNCTION name="pow_m_0_75_fp16_efi" module="pow_m_0_75_fp16">
+    <ATTRIBUTES>
+      <IS_STALL_FREE value="yes"/>
+      <IS_FIXED_LATENCY value="yes"/>
+      <EXPECTED_LATENCY value="8"/>
+      <HAS_SIDE_EFFECTS value="no"/>
+      <ALLOW_MERGING value="yes"/>
+    </ATTRIBUTES>
+    <INTERFACE>
+      <AVALON port="clock" type="clock"/>
+      <AVALON port="resetn" type="resetn"/>
+      <AVALON port="ivalid" type="ivalid"/>
+      <AVALON port="iready" type="iready"/>
+      <AVALON port="ovalid" type="ovalid"/>
+      <AVALON port="oready" type="oready"/>
+      <INPUT  port="datain"  width="16"/>
+      <OUTPUT port="dataout" width="16"/>
+    </INTERFACE>
+    <C_MODEL>
+      <FILE name="pow_m_0_75_fp16/pow_m_0_75_fp16_efi.cl" />
+    </C_MODEL>
+    <REQUIREMENTS>
+      <FILE name="pow_m_0_75_fp16/customPowM075.vhd" />
+      <FILE name="pow_m_0_75_fp16/customPowM075_safe_path.vhd" />
+      <FILE name="pow_m_0_75_fp16/pow_m_0_75_fp16.sv" />
+      <FILE name="pow_m_0_75_fp16/pow_m_0_75_fp16_encrypt_bb.sv" />
+    </REQUIREMENTS>
+  </FUNCTION>
+  <FUNCTION name="sigmoid_fp16_efi" module="sigmoid_fp16_top">
+    <ATTRIBUTES>
+      <PARAMETER name="BOARD_FAMILY_A10" value="1"/>
+      <IS_STALL_FREE value="yes"/>
+      <IS_FIXED_LATENCY value="yes"/>
+      <EXPECTED_LATENCY value="5"/>
+      <HAS_SIDE_EFFECTS value="no"/>
+      <ALLOW_MERGING value="yes"/>
+    </ATTRIBUTES>
+    <INTERFACE>
+      <AVALON port="clock" type="clock"/>
+      <AVALON port="resetn" type="resetn"/>
+      <AVALON port="ivalid" type="ivalid"/>
+      <AVALON port="iready" type="iready"/>
+      <AVALON port="ovalid" type="ovalid"/>
+      <AVALON port="oready" type="oready"/>
+      <INPUT  port="datain"  width="16"/>
+      <OUTPUT port="dataout" width="16"/>
+    </INTERFACE>
+    <C_MODEL>
+      <FILE name="sigmoid/sigmoid_fp16_efi.cl" />
+    </C_MODEL>
+    <REQUIREMENTS>
+      <FILE name="sigmoid/sigmoid_fp16_top.sv" />
+      <FILE name="sigmoid/FPSigmoidHP.sv" />
+      <FILE name="sigmoid/sigmoid_s10_500_ver.sv" />
+      <FILE name="sigmoid/FPSigmoidHP_safe_path_ver.sv" />
+      <FILE name="sigmoid/dspba_library_ver.sv" />
+      <FILE name="sigmoid/sigmoid_fp16_top_encrypt_bb.sv" />
+    </REQUIREMENTS>
+  </FUNCTION>
+  <FUNCTION name="tanh_fp16_efi" module="tanh_fp16_top">
+    <ATTRIBUTES>
+      <PARAMETER name="BOARD_FAMILY_A10" value="1"/>
+      <IS_STALL_FREE value="yes"/>
+      <IS_FIXED_LATENCY value="yes"/>
+      <EXPECTED_LATENCY value="5"/>
+      <HAS_SIDE_EFFECTS value="no"/>
+      <ALLOW_MERGING value="yes"/>
+    </ATTRIBUTES>
+    <INTERFACE>
+      <AVALON port="clock" type="clock"/>
+      <AVALON port="resetn" type="resetn"/>
+      <AVALON port="ivalid" type="ivalid"/>
+      <AVALON port="iready" type="iready"/>
+      <AVALON port="ovalid" type="ovalid"/>
+      <AVALON port="oready" type="oready"/>
+      <INPUT  port="datain"  width="16"/>
+      <OUTPUT port="dataout" width="16"/>
+    </INTERFACE>
+    <C_MODEL>
+      <FILE name="tanh/tanh_fp16_efi.cl" />
+    </C_MODEL>
+    <REQUIREMENTS>
+      <FILE name="tanh/tanh_fp16_top.sv" />
+      <FILE name="tanh/FPTanhHP.sv" />
+      <FILE name="tanh/tanh_s10_500_ver.sv" />
+      <FILE name="tanh/FPTanhHP_safe_path_ver.sv" />
+      <FILE name="tanh/dspba_library_ver.sv" />
+      <FILE name="tanh/tanh_fp16_top_encrypt_bb.sv" />
+    </REQUIREMENTS>
+  </FUNCTION>
+  <FUNCTION name="expm1alpha_fp16_efi" module="expm1alpha_fp16_top">
+    <ATTRIBUTES>
+      <PARAMETER name="BOARD_FAMILY_A10" value="1"/>
+      <IS_STALL_FREE value="yes"/>
+      <IS_FIXED_LATENCY value="yes"/>
+      <EXPECTED_LATENCY value="11"/>
+      <HAS_SIDE_EFFECTS value="no"/>
+      <ALLOW_MERGING value="yes"/>
+    </ATTRIBUTES>
+    <INTERFACE>
+      <AVALON port="clock" type="clock"/>
+      <AVALON port="resetn" type="resetn"/>
+      <AVALON port="ivalid" type="ivalid"/>
+      <AVALON port="iready" type="iready"/>
+      <AVALON port="ovalid" type="ovalid"/>
+      <AVALON port="oready" type="oready"/>
+      <INPUT  port="datain_x"  width="16"/>
+      <INPUT  port="datain_a"  width="16"/>
+      <OUTPUT port="dataout" width="16"/>
+    </INTERFACE>
+    <C_MODEL>
+      <FILE name="expm1alpha/expm1alpha_fp16_efi.cl" />
+    </C_MODEL>
+    <REQUIREMENTS>
+      <FILE name="expm1alpha/expm1alpha_fp16_top.sv" />
+      <FILE name="expm1alpha/expm1alpha_fp16_a10.sv" />
+      <FILE name="expm1alpha/expm1alpha_fp16_s10.sv" />
+      <FILE name="expm1alpha/expm1alpha_fp16_safe_path_ver.sv" />
+      <FILE name="expm1alpha/dspba_library_ver.sv" />
+      <FILE name="expm1alpha/expm1alpha_fp16_top_encrypt_bb.sv" />
+    </REQUIREMENTS>
+  </FUNCTION>
+</EFI_SPEC>

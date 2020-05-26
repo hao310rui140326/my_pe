@@ -1,0 +1,17 @@
++incdir+./
+../rtl/pe_types.sv
+../rtl/delay.sv
+../rtl/pe_accum_fixed.sv
+../rtl/pe_ram.sv
+./dual_port_sram.v
+../rtl/pe_dot_alm.sv
+../rtl/pe_dot_adder_tree.sv
+../rtl/pe_a10_adder1.sv
+../rtl/pe_a10_adder_tree.sv
+../rtl/pe_dot.sv
+../rtl/pe_accum.sv
+../rtl/pe.sv
+../rtl/pe_array.sv
+./tb_tx.sv
+./tb_mon.sv
+tb_pe_array.sv

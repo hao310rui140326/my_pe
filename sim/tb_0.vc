@@ -1,0 +1,14 @@
+../pe_types.sv
+../delay.sv
+../pe_accum_fixed.sv
+../pe_ram.sv
+./dual_port_sram.v
+../pe_dot_alm.sv
+../pe_dot_adder_tree.sv
+../pe_a10_adder1.sv
+../pe_a10_adder_tree.sv
+../pe_dot.sv
+../pe_accum.sv
+../pe.sv
+//../pe_array.sv
+./inst_top.v

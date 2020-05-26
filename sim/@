@@ -1,0 +1,10 @@
++incdir+./
+../pe_types.sv
+../pe.sv
+../pe_dot.sv
+../pe_accum.sv
+../pe_ram.sv
+../pe_dot_checker.sv
+../pe_array.sv
+../delay.sv
+tb_pe_array.sv

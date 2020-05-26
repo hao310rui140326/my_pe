@@ -1,0 +1,18 @@
+#-----------------------------------------------------------
+# Vivado v2019.1 (64-bit)
+# SW Build 2552052 on Fri May 24 14:47:09 MDT 2019
+# IP Build 2548770 on Fri May 24 18:01:18 MDT 2019
+# Start of session at: Tue Apr 28 17:08:05 2020
+# Process ID: 34105
+# Current directory: /home/gmei/wrk/DLA/2019DLAR2/dla_2019_r2/fpga/efi/sim_pe
+# Command line: vivado
+# Log file: /home/gmei/wrk/DLA/2019DLAR2/dla_2019_r2/fpga/efi/sim_pe/vivado.log
+# Journal file: /home/gmei/wrk/DLA/2019DLAR2/dla_2019_r2/fpga/efi/sim_pe/vivado.jou
+#-----------------------------------------------------------
+start_gui
+create_project project_1 /home/gmei/wrk/DLA/2019DLAR2/dla_2019_r2/fpga/efi/sim_pe/project_1 -part xc7vx485tffg1157-1
+add_files -norecurse /home/gmei/wrk/DLA/2019DLAR2/dla_2019_r2/fpga/efi/sim_pe/tb_new.sv
+import_files -force -norecurse
+update_compile_order -fileset sources_1
+set_property target_simulator ModelSim [current_project]
+launch_simulation
