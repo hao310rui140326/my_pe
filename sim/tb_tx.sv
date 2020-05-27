@@ -41,14 +41,16 @@ import pe_sim_pkg::*;
 
  initial begin
      Test_pe();
-     my_read_data(data1,data2,0);
-     $display("sim data print begin ");
-     for(int i=0;i<64;i++)     
-     	$display("data1:  %d",data1[i]);
-     for(int i=0;i<4;i++)     
-     	$display("data2:  %d",data2[i]);
-     $display("sim data print done ");
- 
+     for (int n=0;n<2;n++) 
+     begin  
+     	my_read_data(data1,data2,n);
+     	$display("sim data print begin ");
+     	for(int i=0;i<64;i++)     
+     		$display("data1:  %d",data1[i]);
+     	for(int i=0;i<4;i++)     
+     		$display("data2:  %d",data2[i]);
+     	$display("sim data print done ");
+      end
   end
 
 

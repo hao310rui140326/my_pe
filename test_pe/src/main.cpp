@@ -87,7 +87,7 @@ extern "C"  int  my_read_data(svBitVecVal filter_data[64],svBitVecVal filter_dat
       for (int j = 0; j < 16; j++)
       {
         temp = cur_p_filter_data.filter_data[i].mantissa[j]; 
-        filter_data[i*4+j] =  (int) temp ;
+        filter_data[i*16+j] =  (int) temp ;
       }
       int exponent  = cur_p_filter_data.filter_data[i].exponent;
       filter_data_exp[i] = exponent;
