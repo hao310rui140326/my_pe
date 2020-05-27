@@ -43,6 +43,10 @@ typedef struct VeriC_Descriptor *vc_handle;
  extern void svapfReportResult(/* INPUT */unsigned int assertHandle, /* INPUT */void* ptrAttempt, /* INPUT */int result);
 
  extern int svapfGetAssertEnabled(/* INPUT */unsigned int assertHandle);
+
+ extern int Test_pe();
+
+ extern int my_read_data(/* OUTPUT */svBitVecVal *data1, /* OUTPUT */svBitVecVal *data2, const /* INPUT */svBitVecVal *addr);
 void SdisableFork();
 
 #ifdef __cplusplus

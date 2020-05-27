@@ -4,14 +4,15 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+
         {
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "/home/gmei/cpp/test_pe/pe_run",
+            "program": "/home/hao/wrk/my_pe/test_pe/pe_run",
             "args": [],
             "stopAtEntry": true,
-            "cwd": "/home/gmei/cpp/test_pe",
+            "cwd": "/home/hao/wrk/my_pe/test_pe",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",

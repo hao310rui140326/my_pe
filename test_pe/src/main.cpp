@@ -23,18 +23,88 @@
 #include "pe_array_top.h"
 #include "pe_array.h"
 
+#include "svdpi.h"
+
 //#include <opencv2/core/core.hpp>
 //#include <opencv2/imgproc/imgproc.hpp>
 //#include <opencv2/highgui/highgui.hpp>
 #include <iostream>
 
 
-void Test_pe()
+     //use opencv to genearte in data 
+     //cv::Mat img = cv::imread("test.jpg",1) ;
+     //cv::imshow("image show",img);
+  bool kn2row = true;
+  bool print_outputs = false;
+  bool padding_en = true;
+  bool bias_en = false;
+
+  int ker_size = 3;    //filter kernel size 3x3
+  int group = 1;       //
+  int stride = 1;      // stride
+  int N = 1;           //batch size
+  int C = 32;          // input channel
+  int H = 8; //112        // input height
+  int W = 8; //112        // input width
+  int M = 64;          // output channel
+  //int pad = 0;         // padding
+  //if (padding_en) {
+  //  pad = ker_size / 2;
+  //}
+  int pad =  ker_size / 2;     // padding
+
+
+
+  TensorDim in_dim = {N, C, H, W};
+  TensorDim filt_dim = {M, C, ker_size, ker_size};
+  
+  int w = (in_dim.w + (pad + pad) - filt_dim.w) / stride + 1;
+  int h = (in_dim.h + (pad + pad) - filt_dim.h) / stride + 1;
+  int c = M;
+  int n = in_dim.n;
+  TensorDim out_dim = {n,c,h,w};
+
+    //logic for pe related
+    int cycle_input_reader = TensorSize(in_dim)/C_VECTOR; 
+    int cycle_input_feeder = cycle_input_reader/(P_VECTOR*Q_VECTOR) ;
+    int cycle_filter_reader= TensorSize(filt_dim)/C_VECTOR/NUM_PE_ARRAYS ;
+    int cycle_output       = 0 ;
+    input_reader_output_t *p_input_reader_output = malloc(cycle_input_reader * sizeof(input_reader_output_t));
+    input_feeder_output_t *p_input_feeder_output = malloc(cycle_input_feeder * sizeof(input_feeder_output_t));
+    filter_reader_output_t *p_filter_data  = malloc(cycle_filter_reader * sizeof(filter_reader_output_t));
+    pe_array_output_t *p_filter_result = malloc(cycle_output * sizeof(pe_array_output_t));
+
+
+//int  my_est_pe(const svOpenArrayHandle databuf)
+extern "C"  int  my_read_data(svBitVecVal filter_data[64],svBitVecVal filter_data_exp[4],const svBitVecVal * addr) 
+{
+    printf("pe read data  test begin!\n");
+
+    unsigned  int   temp ;
+    filter_reader_output_t cur_p_filter_data = *(p_filter_data+*addr) ;
+    for  (int i = 0; i < 4; i++)
+    {
+      for (int j = 0; j < 16; j++)
+      {
+        temp = cur_p_filter_data.filter_data[i].mantissa[j]; 
+        filter_data[i*4+j] =  (int) temp ;
+      }
+      int exponent  = cur_p_filter_data.filter_data[i].exponent;
+      filter_data_exp[i] = exponent;
+    }
+    printf("pe read data test end!\n");
+    return 0 ;
+}
+
+
+
+extern "C"  int  Test_pe()
 {
     printf("pe structure test begin!\n");
      //use opencv to genearte in data 
      //cv::Mat img = cv::imread("test.jpg",1) ;
      //cv::imshow("image show",img);
+/* 
   bool kn2row = true;
   bool print_outputs = false;
   bool padding_en = true;
@@ -60,6 +130,7 @@ void Test_pe()
   out_dim.h = (in_dim.h + (pad + pad) - filt_dim.h) / stride + 1;
   out_dim.c = M;
   out_dim.n = in_dim.n;
+*/
   float *in_data = malloc(TensorSize(in_dim) * sizeof(float));
   float *filters = malloc(TensorSize(filt_dim) * sizeof(float));
   float *bias = malloc(out_dim.c * sizeof(float));
@@ -350,7 +421,7 @@ for(auto i=0;i<TensorSize(in_dim);i++) {
 
 
     //logic for pe related
-    int cycle_input_reader = TensorSize(in_dim)/C_VECTOR; 
+ /*   int cycle_input_reader = TensorSize(in_dim)/C_VECTOR; 
     int cycle_input_feeder = cycle_input_reader/(P_VECTOR*Q_VECTOR) ;
     int cycle_filter_reader= TensorSize(filt_dim)/C_VECTOR/NUM_PE_ARRAYS ;
     int cycle_output       = 0 ;
@@ -358,7 +429,7 @@ for(auto i=0;i<TensorSize(in_dim);i++) {
     input_feeder_output_t *p_input_feeder_output = malloc(cycle_input_feeder * sizeof(input_feeder_output_t));
     filter_reader_output_t *p_filter_data  = malloc(cycle_filter_reader * sizeof(filter_reader_output_t));
     pe_array_output_t *p_filter_result = malloc(cycle_output * sizeof(pe_array_output_t));
-
+*/
     
     for (int i = 0; i < cycle_input_reader; i++)
     {
@@ -517,10 +588,11 @@ if (VectorCompare(filters, filters_debug, TensorSize(filt_dim))) {
     free(in_data_shift);
     free(filters_shift);
     free(p_input_reader_output);
-    free(p_input_feeder_output);
-    free(p_filter_data);
-    free(p_filter_result);
+    //free(p_input_feeder_output);
+    //free(p_filter_data);
+    //free(p_filter_result);
     printf("pe structure test end!\n");
+    return 0 ;
 }
 
 int main(void)

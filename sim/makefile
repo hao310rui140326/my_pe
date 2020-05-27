@@ -41,6 +41,9 @@ RUN_OPTS +=	+vpdfileswitchsize+3000
 RUN_OPTS +=	+ntb_random_seed=$(SEED)
 RUN_OPTS +=	+notimingcheck
 
+CFLAG	   = -D_FILE_OFFSET_BITS=64 -D_LARGE_FILE -g
+C_HOME = ../test_pe
+
 test:
 	vcs -static_debug -f tb.vc -sverilog -full64 -assert svaext
 
@@ -48,17 +51,17 @@ comp:
 	rm -rf mywork
 	mkdir -p mywork
 	@echo "comp start time is:" `date '+%Y-%m-%d %H:%M:%S'` >> time.log
-	vlogan -work mywork ${VLOG_COMP_OPTS} -l comp_vlog.log
+	vlogan -work mywork ${VLOG_COMP_OPTS}     -l comp_vlog.log
 	@echo "comp end   time is:" `date '+%Y-%m-%d %H:%M:%S'` >> time.log
 
 elab:
 	@echo "elab start time is:" `date '+%Y-%m-%d %H:%M:%S'` >> time.log
-	vcs mywork.$(TB_TOP_MODEL_NAME) $(ELAB_OPTS) $(OBJ_LIST) -l elab.log -P  /usr/synopsys/Verdi3_L-2016.06-1/share/PLI/VCS/LINUX64/novas.tab   /usr/synopsys/Verdi3_L-2016.06-1/share/PLI/VCS/LINUX64/pli.a 
+	vcs mywork.$(TB_TOP_MODEL_NAME) $(ELAB_OPTS) $(OBJ_LIST)  -dpi  pe_run.so    -l elab.log -P  /usr/synopsys/Verdi3_L-2016.06-1/share/PLI/VCS/LINUX64/novas.tab   /usr/synopsys/Verdi3_L-2016.06-1/share/PLI/VCS/LINUX64/pli.a 
 	@echo "elab end   time is:" `date '+%Y-%m-%d %H:%M:%S'` >> time.log
 
 run:
 	@echo "run  start time is:" `date '+%Y-%m-%d %H:%M:%S'` >> time.log
-	./simv $(RUN_OPTS) -l run.log
+	./simv $(RUN_OPTS)   -l run.log
 	@echo "run  end   time is:" `date '+%Y-%m-%d %H:%M:%S'` >> time.log
 
 sim: clean comp elab run
@@ -81,6 +84,15 @@ emacs:
 verdi:
 	##verdi -sv -f tb.vc -top tb_pe_array -ssf pe.fsdb &
 	verdi -sv -f tb.vc -top tb_pe_array  &
+
+
+
+cgcc:
+	cp ../test_pe/obj/*.o ./
+	g++   -pipe -fPIC -shared -o pe_run.so kn2col_conv.o im2col_conv.o utils.o winograd_conv1d.o kn2row_conv.o reference_conv.o main.o data_reshape.o cpp_convnet_conv.o    -lm  -lopenblas
+
+
+
 
 	
 

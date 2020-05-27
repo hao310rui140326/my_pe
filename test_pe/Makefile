@@ -52,7 +52,7 @@ $(OBJ_DIR):
 	
 $(OBJS):$(OBJ_DIR)%.o:%.cpp
 	@echo "Building $@ from $<..."
-	$(CC) -c $(CFLAGS) $< -o $@ $(DLIBS)
+	$(CC)  -pipe -fPIC -shared   -c $(CFLAGS) $< -o $@ $(DLIBS)
 	
 #-------------------------------------------
 
@@ -85,5 +85,9 @@ print:
 my_run:
 	g++  -Wall -Wfatal-errors -fpermissive  -O0 -g -DDEBUG_EN -std=c++11   $(SRCS)   $(foreach D,$(INC_DIRS),-I$D) $(foreach L,$(LIBS), -l$(L))    -o    my_test 
 
+my_com:$(OBJS)
+	g++  -o pe_run  ./obj/kn2col_conv.o ./obj/im2col_conv.o ./obj/utils.o ./obj/winograd_conv1d.o ./obj/kn2row_conv.o ./obj/reference_conv.o ./obj/main.o ./obj/data_reshape.o ./obj/cpp_convnet_conv.o    -lm  -lopenblas 	
+	@echo "Compile done ..."	
+	
 
 

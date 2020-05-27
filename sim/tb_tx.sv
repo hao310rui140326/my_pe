@@ -18,6 +18,8 @@
 // suppliers or licensors in any way.
 
 `include "pe_inc.sv"
+`include "pe_sim_pkg.sv"
+
 
 module tb_tx import pe_types::*; #(
   `pe_cfg_top
@@ -30,11 +32,24 @@ module tb_tx import pe_types::*; #(
   output  pe_array_input_t#(cfg)::t  idata
 );
 
+import pe_sim_pkg::*;
 
 
+  bit[31:0] data1[64];
+  bit[31:0] data2[4];
+  //bit[15:0] data2[4];
 
-
-
+ initial begin
+     Test_pe();
+     my_read_data(data1,data2,0);
+     $display("sim data print begin ");
+     for(int i=0;i<64;i++)     
+     	$display("data1:  %d",data1[i]);
+     for(int i=0;i<4;i++)     
+     	$display("data2:  %d",data2[i]);
+     $display("sim data print done ");
+ 
+  end
 
 
 endmodule
