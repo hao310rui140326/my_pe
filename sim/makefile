@@ -57,7 +57,7 @@ comp:
 elab:
 	@echo "elab start time is:" `date '+%Y-%m-%d %H:%M:%S'` >> time.log
 	##vcs mywork.$(TB_TOP_MODEL_NAME) $(ELAB_OPTS) $(OBJ_LIST)  -dpi  pe_run.so    -l elab.log -P  /usr/synopsys/Verdi3_L-2016.06-1/share/PLI/VCS/LINUX64/novas.tab   /usr/synopsys/Verdi3_L-2016.06-1/share/PLI/VCS/LINUX64/pli.a 
-	vcs mywork.$(TB_TOP_MODEL_NAME) $(ELAB_OPTS) $(OBJ_LIST)     -l elab.log -P  /usr/synopsys/Verdi3_L-2016.06-1/share/PLI/VCS/LINUX64/novas.tab   /usr/synopsys/Verdi3_L-2016.06-1/share/PLI/VCS/LINUX64/pli.a 
+	vcs -full64 -cpp g++-4.8 -cc gcc-4.8   mywork.$(TB_TOP_MODEL_NAME) $(ELAB_OPTS) $(OBJ_LIST)     -l elab.log -P  /usr/synopsys/Verdi3_L-2016.06-1/share/PLI/VCS/LINUX64/novas.tab   /usr/synopsys/Verdi3_L-2016.06-1/share/PLI/VCS/LINUX64/pli.a 
 	@echo "elab end   time is:" `date '+%Y-%m-%d %H:%M:%S'` >> time.log
 
 run:
