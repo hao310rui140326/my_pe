@@ -1,0 +1,25 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/g++",
+            "cStandard": "c11",
+            "cppStandard": "c++14",
+            "intelliSenseMode": "gcc-x64",
+            "compilerArgs": [
+                "-Wall ",
+                "-Wfatal-errors ",
+                "-fpermissive  ",
+                "-O0 ",
+                "-g ",
+                "-DDEBUG_EN ",
+                "-std=c++11"
+            ]
+        }
+    ],
+    "version": 4
+}
